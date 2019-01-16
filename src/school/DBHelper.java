@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 public class DBHelper {
     private static String url = "jdbc:mysql://localhost:3306/school";
     private static String login = "root";
-    private static String password = "";
+    private static String password = "mysql";
 
     private static Connection connect() {
         Connection conn = null;
@@ -27,7 +27,7 @@ public class DBHelper {
         long id = 0;
         try {
             query = connection.prepareStatement(
-                    "insert into students (FIRST_NAME, LAST_NAME) values(?, ?)");
+                    "insert into student (FIRST_NAME, LAST_NAME) values(?, ?)");
             query.setString(1, firstName);
             query.setString(2, lastName);
             id = query.executeUpdate();
@@ -45,7 +45,7 @@ public class DBHelper {
         try {
             st = connection.createStatement();
 
-            ResultSet rs = st.executeQuery("SELECT * FROM students;");
+            ResultSet rs = st.executeQuery("SELECT * FROM student;");
             while (rs.next()) {
                 StudentsData studentsData = new StudentsData();
                 studentsData.setId(rs.getLong("ID"));
@@ -67,7 +67,7 @@ public class DBHelper {
         long id = 0;
         try {
             query = connection.prepareStatement(
-                    "insert into exam (SUBJECT, DESCRIPTION) values(?, ?)");
+                    "insert into exam (SUBJECT_NAME, SUBJECT_DESCRIPTION) values(?, ?)");
             query.setString(1, subject);
             query.setString(2, desc);
             id = query.executeUpdate();
@@ -89,8 +89,8 @@ public class DBHelper {
             while (rs.next()) {
                 ExamData exam = new ExamData();
                 exam.setId(rs.getLong("ID"));
-                exam.setSubject(rs.getString("SUBJECT"));
-                exam.setDescription(rs.getString("DESCRIPTION"));
+                exam.setSubject(rs.getString("SUBJECT_NAME"));
+                exam.setDescription(rs.getString("SUBJECT_DESCRIPTION"));
                 examList.add(exam);
             }
             st.close();
@@ -123,13 +123,13 @@ public class DBHelper {
             st = connection.createStatement();
 
             ResultSet rs = st.executeQuery(
-                    "SELECT e.subject, e.description, m.grade as grade, m.id " +
+                    "SELECT e.subject_name, e.subject_description, m.grade as grade, m.id " +
                             "FROM exam e join marks m on e.ID = m.EXAM_FK WHERE m.student_fk = "  + studentId + ";");
             while (rs.next()) {
                 ExamsStudent examStud = new ExamsStudent();
                 ExamData exam = new ExamData();
-                exam.setSubject(rs.getString("SUBJECT"));
-                exam.setDescription(rs.getString("DESCRIPTION"));
+                exam.setSubject(rs.getString("SUBJECT_NAME"));
+                exam.setDescription(rs.getString("SUBJECT_DESCRIPTION"));
                 examStud.setExam(exam);
                 examStud.setGrade(rs.getInt("grade"));
                 examStud.setId(rs.getLong("ID"));
@@ -151,7 +151,7 @@ public class DBHelper {
             st = connection.createStatement();
 
             ResultSet rs = st.executeQuery(
-                    "SELECT s.first_name, s.last_name, m.grade as grade, m.id FROM students s join marks m on s.ID = m.STUDENT_FK\n" +
+                    "SELECT s.first_name, s.last_name, m.grade as grade, m.id FROM student s join marks m on s.ID = m.STUDENT_FK\n" +
                             "WHERE m.EXAM_FK = " + examId + ";");
             while (rs.next()) {
                 StudentsExam studentsExam = new StudentsExam();

@@ -7,22 +7,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DBHelper {
-    private static String url = "jdbc:mysql://localhost:3306/school";
-    private static String login = "root";
-    private static String password = "mysql";
-
-    private static Connection connect() {
-        Connection conn = null;
-        try {
-            conn = DriverManager.getConnection(url, login, password);
-        } catch (SQLException ex) {
-            Logger.getLogger(DBHelper.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return conn;
-    }
 
     public static long insertDataToStudents(String firstName, String lastName) {
-        Connection connection = connect();
+        Connection connection = SchoolConnection.connect();
         PreparedStatement query;
         long id = 0;
         try {
@@ -31,7 +18,7 @@ public class DBHelper {
             query.setString(1, firstName);
             query.setString(2, lastName);
             id = query.executeUpdate();
-            connection.close();
+            
         } catch (SQLException ex) {
             Logger.getLogger(DBHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -39,7 +26,7 @@ public class DBHelper {
     }
 
     public static List<StudentsData> getStudentsList() {
-        Connection connection = connect();
+        Connection connection = SchoolConnection.connect();
         List<StudentsData> studentsList = new ArrayList<>();
         Statement st = null;
         try {
@@ -54,7 +41,7 @@ public class DBHelper {
                 studentsList.add(studentsData);
             }
             st.close();
-            connection.close();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -62,7 +49,7 @@ public class DBHelper {
     }
 
     public static long insertDataToExam(String subject, String desc) {
-        Connection connection = connect();
+        Connection connection = SchoolConnection.connect();
         PreparedStatement query;
         long id = 0;
         try {
@@ -71,7 +58,7 @@ public class DBHelper {
             query.setString(1, subject);
             query.setString(2, desc);
             id = query.executeUpdate();
-            connection.close();
+            
         } catch (SQLException ex) {
             Logger.getLogger(DBHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -79,7 +66,7 @@ public class DBHelper {
     }
 
     public static List<ExamData> getExamList() {
-        Connection connection = connect();
+        Connection connection = SchoolConnection.connect();
         List<ExamData> examList = new ArrayList<>();
         Statement st = null;
         try {
@@ -94,7 +81,7 @@ public class DBHelper {
                 examList.add(exam);
             }
             st.close();
-            connection.close();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -102,7 +89,7 @@ public class DBHelper {
     }
 
     public static long insertExamToStudent(long studentId, long examId, int grade) throws SQLException {
-        Connection connection = connect();
+        Connection connection = SchoolConnection.connect();
         PreparedStatement query;
         long id = 0;
         query = connection.prepareStatement(
@@ -111,12 +98,12 @@ public class DBHelper {
         query.setLong(2, studentId);
         query.setLong(3, examId);
         id = query.executeUpdate();
-        connection.close();
+        
         return id;
     }
 
     public static List<ExamsStudent> getExamsStudentList(long studentId) {
-        Connection connection = connect();
+        Connection connection = SchoolConnection.connect();
         List<ExamsStudent> examList = new ArrayList<>();
         Statement st = null;
         try {
@@ -136,7 +123,7 @@ public class DBHelper {
                 examList.add(examStud);
             }
             st.close();
-            connection.close();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -144,7 +131,7 @@ public class DBHelper {
     }
 
     public static List<StudentsExam> getStudentExamList(long examId) {
-        Connection connection = connect();
+        Connection connection = SchoolConnection.connect();
         List<StudentsExam> examList = new ArrayList<>();
         Statement st = null;
         try {
@@ -164,7 +151,7 @@ public class DBHelper {
                 examList.add(studentsExam);
             }
             st.close();
-            connection.close();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }

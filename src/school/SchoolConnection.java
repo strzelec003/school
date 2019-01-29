@@ -6,14 +6,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class SchoolConnection {
+class SchoolConnection {
     private static String url = "jdbc:mysql://localhost:3306/school";
     private static String login = "root";
     private static String password = "mysql";
-    private Connection connection;
+    private static Connection connection;
 
 
-    public static Connection connect() {
+    static Connection connect() {
         if(connection != null){
             return connection;
         }

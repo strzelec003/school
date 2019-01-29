@@ -5,7 +5,7 @@ public class StudentsData {
     private String firstName;
     private String lastName;
 
-    public StudentsData() {
+    StudentsData() {
     }
 
     public StudentsData(long id, String firstName, String lastName) {
@@ -14,27 +14,27 @@ public class StudentsData {
         this.lastName = lastName;
     }
 
-    public String getLastName() {
+    String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    public String getFirstName() {
+    String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    public long getId() {
+    long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    void setId(long id) {
         this.id = id;
     }
 }

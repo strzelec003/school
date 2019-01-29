@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class DBHelper {
+class DBHelper {
 
-    public static long insertDataToStudents(String firstName, String lastName) {
+    static long insertDataToStudents(String firstName, String lastName) {
         Connection connection = SchoolConnection.connect();
         PreparedStatement query;
         long id = 0;
@@ -25,10 +25,10 @@ public class DBHelper {
         return id;
     }
 
-    public static List<StudentsData> getStudentsList() {
+    static List<StudentsData> getStudentsList() {
         Connection connection = SchoolConnection.connect();
         List<StudentsData> studentsList = new ArrayList<>();
-        Statement st = null;
+        Statement st;
         try {
             st = connection.createStatement();
 
@@ -48,7 +48,7 @@ public class DBHelper {
         return studentsList;
     }
 
-    public static long insertDataToExam(String subject, String desc) {
+    static long insertDataToExam(String subject, String desc) {
         Connection connection = SchoolConnection.connect();
         PreparedStatement query;
         long id = 0;
@@ -65,10 +65,10 @@ public class DBHelper {
         return id;
     }
 
-    public static List<ExamData> getExamList() {
+    static List<ExamData> getExamList() {
         Connection connection = SchoolConnection.connect();
         List<ExamData> examList = new ArrayList<>();
-        Statement st = null;
+        Statement st;
         try {
             st = connection.createStatement();
 
@@ -88,10 +88,10 @@ public class DBHelper {
         return examList;
     }
 
-    public static long insertExamToStudent(long studentId, long examId, int grade) throws SQLException {
+    static long insertExamToStudent(long studentId, long examId, int grade) throws SQLException {
         Connection connection = SchoolConnection.connect();
         PreparedStatement query;
-        long id = 0;
+        long id;
         query = connection.prepareStatement(
                 "insert into marks (GRADE, STUDENT_FK, EXAM_FK) values(?, ?, ?)");
         query.setInt(1, grade);
@@ -102,10 +102,10 @@ public class DBHelper {
         return id;
     }
 
-    public static List<ExamsStudent> getExamsStudentList(long studentId) {
+    static List<ExamsStudent> getExamsStudentList(long studentId) {
         Connection connection = SchoolConnection.connect();
         List<ExamsStudent> examList = new ArrayList<>();
-        Statement st = null;
+        Statement st;
         try {
             st = connection.createStatement();
 
@@ -130,10 +130,10 @@ public class DBHelper {
         return examList;
     }
 
-    public static List<StudentsExam> getStudentExamList(long examId) {
+    static List<StudentsExam> getStudentExamList(long examId) {
         Connection connection = SchoolConnection.connect();
         List<StudentsExam> examList = new ArrayList<>();
-        Statement st = null;
+        Statement st;
         try {
             st = connection.createStatement();
 

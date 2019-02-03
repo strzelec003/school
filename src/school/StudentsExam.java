@@ -11,7 +11,7 @@ class StudentsExam {
 
     int getGrade() {
         return grade;
-    }
+}
 
     void setGrade(int grade) {
         this.grade = grade;
